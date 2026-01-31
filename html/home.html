@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio | Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-black: #0a0a0a;
+            --secondary-green: #00ff00;
+            --glow-green: rgba(0, 255, 0, 0.7);
+            --text-white: #ffffff;
+            --card-black: #1a1a1a;
+        }
+
+        body {
+            background-color: var(--primary-black);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-green);
+            text-shadow: 0 0 10px var(--glow-green);
+        }
+
+        .logo span {
+            color: var(--text-white);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-green);
+            text-shadow: 0 0 8px var(--glow-green);
+        }
+
+        .nav-links a.active {
+            color: var(--secondary-green);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary-green);
+            box-shadow: 0 0 8px var(--glow-green);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Home Content */
+        .home-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4rem 5%;
+            min-height: calc(100vh - 80px);
+            gap: 3rem;
+        }
+
+        .intro-content {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .intro-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .intro-content h1 span {
+            color: var(--secondary-green);
+            text-shadow: 0 0 10px var(--glow-green);
+        }
+
+        .intro-content .title {
+            font-size: 1.5rem;
+            color: var(--secondary-green);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 5px var(--glow-green);
+        }
+
+        .intro-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--secondary-green);
+            border: 2px solid var(--secondary-green);
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary-green);
+            color: var(--primary-black);
+            box-shadow: 0 0 20px var(--glow-green);
+        }
+
+        /* Profile Image */
+        .profile-image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .profile-image {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, var(--card-black), #0f0f0f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            border: 5px solid transparent;
+            animation: bounce 3s infinite ease-in-out;
+            box-shadow: 0 0 40px var(--glow-green);
+        }
+
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 30%, var(--glow-green) 150%);
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .profile-image img {
+            width: 90%;
+            height: 90%;
+            border-radius: 50%;
+            object-fit: cover;
+            z-index: 2;
+            position: relative;
+        }
+
+        .placeholder-img {
+            width: 90%;
+            height: 90%;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #222, #333);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--secondary-green);
+            text-align: center;
+            padding: 1rem;
+            z-index: 2;
+            position: relative;
+        }
+
+        .placeholder-img i {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--glow-green);
+        }
+
+        /* Bounce animation */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(0, 255, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-white);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-green);
+            transform: translateY(-5px);
+            text-shadow: 0 0 10px var(--glow-green);
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 992px) {
+            .home-container {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 2rem;
+            }
+
+            .intro-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .profile-image {
+                width: 300px;
+                height: 300px;
+                margin-top: 2rem;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-black);
+                flex-direction: column;
+                padding: 1rem 0;
+                border-top: 1px solid rgba(0, 255, 0, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 0.8rem 5%;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .intro-content h1 {
+                font-size: 2rem;
+            }
+
+            .profile-image {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .intro-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .profile-image {
+                width: 220px;
+                height: 220px;
+            }
+
+            .cta-button {
+                padding: 0.7rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Port<span>folio</span></div>
+        <div class="nav-links" id="navLinks">
+            <a href="#" class="active">Home</a>
+            <a href="skills.html">Skills</a>
+            <a href="projects.html">Projects</a>
+            <a href="ContactMe.html">Contact Me</a>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Home Content -->
+    <section class="home-container">
+       <div class="intro-content">
+    <h1>Hi, I'm <span>Nyanda Mdlalose</span></h1>
+    <div class="title">Mobile + Full Stack Developer & UI/UX Designer</div>
+    <p>
+        Recent Bachelor of Information Technology graduate with 17 distinctions, specializing in full-stack 
+        development with hands-on cloud implementation experience. I build production-ready web and mobile 
+        applications using modern frameworks like React, Flutter, and ASP.NET, integrated with cloud platforms 
+        including Google Cloud AI, Firebase, and Microsoft Azure.
+    </p>
+    <p>
+        I've delivered complete solutions with payment gateways, admin dashboards, and AI-powered features, 
+        deployed on cloud platforms like Render. My expertise spans from front-end UI/UX design to back-end 
+        development and cloud infrastructure, with a focus on creating scalable, user-centric applications 
+        that solve real-world problems.
+    </p>
+    <p>
+        Passionate about leveraging cloud technologies to create efficient, scalable solutions, I'm constantly 
+        expanding my skills in cloud-native development, AI integration, and cross-platform mobile applications.
+    </p>
+
+    <p>Currently persuing my certificate in AWS and constantly improving my skills</p>
+    <a href="projects.html" class="cta-button">View My Projects</a>
+</div>
+        <div class="profile-image-container">
+    <div class="profile-image">
+        <!-- Your actual profile picture -->
+        <img src="../Images/Nyanda_Photo.jpg" alt="Nyanda Mdlalose">
+        
+        <!-- comment out the placeholder -->
+        <!--
+        <div class="placeholder-img">
+            <i class="fas fa-user-circle"></i>
+            <p>Your Photo Here</p>
+            <p style="font-size: 0.8rem;">(Replace with your image)</p>
+        </div>
+        -->
+    </div>
+</div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        
+        <p>&copy; My Portfolio. All rights reserved.</p>
+       
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+    </script>
+</body>
+</html>

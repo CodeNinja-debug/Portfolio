@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio | Skills</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-black: #0a0a0a;
+            --secondary-green: #00ff00;
+            --glow-green: rgba(0, 255, 0, 0.7);
+            --text-white: #ffffff;
+            --card-black: #1a1a1a;
+            --section-spacing: 4rem;
+        }
+
+        body {
+            background-color: var(--primary-black);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-green);
+            text-shadow: 0 0 10px var(--glow-green);
+        }
+
+        .logo span {
+            color: var(--text-white);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-green);
+            text-shadow: 0 0 8px var(--glow-green);
+        }
+
+        .nav-links a.active {
+            color: var(--secondary-green);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary-green);
+            box-shadow: 0 0 8px var(--glow-green);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 4rem 5% 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--text-white);
+        }
+
+        .page-header h1 span {
+            color: var(--secondary-green);
+            text-shadow: 0 0 10px var(--glow-green);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        /* Skills Container */
+        .skills-container {
+            padding: 0 5% var(--section-spacing);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background-color: var(--card-black);
+            border-radius: 10px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 255, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary-green);
+            box-shadow: 0 10px 25px rgba(0, 255, 0, 0.1);
+        }
+
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--secondary-green);
+            box-shadow: 0 0 10px var(--glow-green);
+        }
+
+        .skill-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-green);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .skill-category h3 i {
+            font-size: 1.3rem;
+            text-shadow: 0 0 8px var(--glow-green);
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-tag {
+            background-color: rgba(0, 255, 0, 0.1);
+            color: var(--secondary-green);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background-color: rgba(0, 255, 0, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+
+        /* UI/UX Platforms Section */
+        .ui-ux-platforms {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 5%;
+        }
+
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .platform-card {
+            background-color: var(--card-black);
+            border-radius: 10px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 255, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary-green);
+            box-shadow: 0 10px 25px rgba(0, 255, 0, 0.1);
+        }
+
+        .platform-icon {
+            font-size: 3rem;
+            color: var(--secondary-green);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 15px var(--glow-green);
+        }
+
+        .platform-card h4 {
+            font-size: 1.4rem;
+            color: var(--secondary-green);
+            margin-bottom: 1rem;
+        }
+
+        .platform-card p {
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .platform-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .platform-feature {
+            background-color: rgba(0, 255, 0, 0.08);
+            color: var(--secondary-green);
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+        }
+
+        /* Education & Certification */
+        .edu-cert-section {
+            padding: 3rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            color: var(--text-white);
+        }
+
+        .section-title span {
+            color: var(--secondary-green);
+            text-shadow: 0 0 8px var(--glow-green);
+        }
+
+        .edu-cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .edu-cert-card {
+            background-color: var(--card-black);
+            border-radius: 10px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 255, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .edu-cert-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary-green);
+            box-shadow: 0 10px 25px rgba(0, 255, 0, 0.1);
+        }
+
+        .edu-cert-card h4 {
+            font-size: 1.4rem;
+            color: var(--secondary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-cert-card .institution {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-white);
+        }
+
+        .edu-cert-card .period {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .edu-cert-card .achievements {
+            margin-top: 1rem;
+        }
+
+        .achievement-tag {
+            display: inline-block;
+            background-color: rgba(0, 255, 0, 0.1);
+            color: var(--secondary-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(0, 255, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-white);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-green);
+            transform: translateY(-5px);
+            text-shadow: 0 0 10px var(--glow-green);
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 992px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .platforms-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-black);
+                flex-direction: column;
+                padding: 1rem 0;
+                border-top: 1px solid rgba(0, 255, 0, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 0.8rem 5%;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .skill-category, .platform-card, .edu-cert-card {
+                padding: 1.5rem;
+            }
+
+            .skills-grid, .platforms-grid, .edu-cert-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Port<span>folio</span></div>
+        <div class="nav-links" id="navLinks">
+            <a href="home.html">Home</a>
+            <a href="skills.html" class="active">Skills</a>
+            <a href="projects.html">Projects</a>
+            <a href="ContactMe.html">Contact Me</a>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>My <span>Skills</span> & Expertise</h1>
+        <p>With a strong foundation in Information Technology and hands-on experience in full-stack development, I've cultivated a diverse technical skillset focused on creating scalable, cloud-integrated solutions.</p>
+        <p>Here's a comprehensive overview of my technical capabilities:</p>
+    </section>
+
+    <!-- Skills Grid -->
+    <section class="skills-container">
+        <div class="skills-grid">
+            <!-- Cloud & Platform Skills -->
+            <div class="skill-category">
+                <h3><i class="fas fa-cloud"></i> Cloud & Platform</h3>
+                <div class="skill-list">
+                    <div class="skill-tag">Google Cloud Platform</div>
+                    <div class="skill-tag">Microsoft Azure</div>
+                    <div class="skill-tag">Firebase</div>
+                    <div class="skill-tag">Cloudinary</div>
+                    <div class="skill-tag">Supabase</div>
+                    <div class="skill-tag">Render (Deployment)</div>
+                    <div class="skill-tag">Google Cloud AI</div>
+                </div>
+            </div>
+
+            <!-- Frontend Development -->
+            <div class="skill-category">
+                <h3><i class="fas fa-code"></i> Frontend Development</h3>
+                <div class="skill-list">
+                    <div class="skill-tag">HTML5</div>
+                    <div class="skill-tag">CSS3</div>
+                    <div class="skill-tag">JavaScript</div>
+                    <div class="skill-tag">React</div>
+                    <div class="skill-tag">Dynamic HTML</div>
+                    <div class="skill-tag">UI/UX Design</div>
+                    <div class="skill-tag">Responsive Design</div>
+                </div>
+            </div>
+
+            <!-- Backend Development -->
+            <div class="skill-category">
+                <h3><i class="fas fa-server"></i> Backend Development</h3>
+                <div class="skill-list">
+                    <div class="skill-tag">Node.js</div>
+                    <div class="skill-tag">PHP</div>
+                    <div class="skill-tag">Java</div>
+                    <div class="skill-tag">C#</div>
+                    <div class="skill-tag">ASP.NET</div>
+                    <div class="skill-tag">REST APIs</div>
+                    <div class="skill-tag">Payment Integration</div>
+                </div>
+            </div>
+
+            <!-- Mobile Development -->
+            <div class="skill-category">
+                <h3><i class="fas fa-mobile-alt"></i> Mobile Development</h3>
+                <div class="skill-list">
+                    <div class="skill-tag">React Native</div>
+                    <div class="skill-tag">Flutter</div>
+                    <div class="skill-tag">Dart</div>
+                    <div class="skill-tag">Kotlin</div>
+                    <div class="skill-tag">Android Studio</div>
+                    <div class="skill-tag">Cross-Platform</div>
+                </div>
+            </div>
+
+            <!-- Database Management -->
+            <div class="skill-category">
+                <h3><i class="fas fa-database"></i> Database Management</h3>
+                <div class="skill-list">
+                    <div class="skill-tag">SQL</div>
+                    <div class="skill-tag">MongoDB</div>
+                    <div class="skill-tag">Firebase Realtime DB</div>
+                    <div class="skill-tag">Database Design</div>
+                    <div class="skill-tag">Data Integration</div>
+                </div>
+            </div>
+
+            <!-- Tools & Other -->
+            <div class="skill-category">
+                <h3><i class="fas fa-tools"></i> Tools & Other</h3>
+                <div class="skill-list">
+                    <div class="skill-tag">Git & GitHub</div>
+                    <div class="skill-tag">WordPress</div>
+                    <div class="skill-tag">Android Studio</div>
+                    <div class="skill-tag">VS Code</div>
+                    <div class="skill-tag">Full Stack Dev</div>
+                    <div class="skill-tag">Problem Solving</div>
+                    <div class="skill-tag">Quick Learner</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UI/UX Design Platforms -->
+    <section class="ui-ux-platforms">
+        <h2 class="section-title">UI/UX Design <span>Platforms</span></h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; opacity: 0.9;">
+            I create intuitive and visually appealing user interfaces using industry-standard design tools, 
+            focusing on user-centered design principles across all platforms.
+        </p>
+        
+        <div class="platforms-grid">
+            <!-- Figma Card -->
+            <div class="platform-card">
+                <div class="platform-icon">
+                    <i class="fab fa-figma"></i>
+                </div>
+                <h4>Figma</h4>
+                <p>Primary tool for creating responsive designs, wireframes, and interactive prototypes with collaborative features.</p>
+                <div class="platform-features">
+                    <span class="platform-feature">Wireframing</span>
+                    <span class="platform-feature">Prototyping</span>
+                    <span class="platform-feature">Design Systems</span>
+                    <span class="platform-feature">Collaboration</span>
+                </div>
+            </div>
+            
+            <!-- Adobe XD Card -->
+            <div class="platform-card">
+                <div class="platform-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h4>Adobe XD</h4>
+                <p>Used for creating high-fidelity mockups, interactive prototypes, and design specifications for development teams.</p>
+                <div class="platform-features">
+                    <span class="platform-feature">Vector Design</span>
+                    <span class="platform-feature">Interactive Prototypes</span>
+                    <span class="platform-feature">Repeat Grids</span>
+                    <span class="platform-feature">Auto-Animate</span>
+                </div>
+            </div>
+            
+            <!-- Sketch Card -->
+            <div class="platform-card">
+                <div class="platform-icon">
+                    <i class="fas fa-vector-square"></i>
+                </div>
+                <h4>Sketch</h4>
+                <p>Utilized for creating scalable vector designs, symbol libraries, and responsive layouts for web and mobile applications.</p>
+                <div class="platform-features">
+                    <span class="platform-feature">Vector Editing</span>
+                    <span class="platform-feature">Symbol Libraries</span>
+                    <span class="platform-feature">Responsive Design</span>
+                    <span class="platform-feature">Plugins</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Certification -->
+    <section class="edu-cert-section">
+        <h2 class="section-title">Education & <span>Qualifications</span></h2>
+        
+        <div class="edu-cert-grid">
+            <!-- Education -->
+            <div class="edu-cert-card">
+                <h4>Bachelor of Information Technology</h4>
+                <div class="institution">Stadio Higher Education University</div>
+                <div class="period">2023 - 2025</div>
+                <p>Graduated with exceptional academic performance and practical full-stack development experience.</p>
+                
+                <div class="achievements">
+                    <span class="achievement-tag">17 Distinctions</span>
+                    <span class="achievement-tag">6 Distinctions (1st Year)</span>
+                    <span class="achievement-tag">5 Distinctions (2nd Year)</span>
+                    <span class="achievement-tag">6 Distinctions (Final Year)</span>
+                </div>
+            </div>
+            
+            <!-- Certification -->
+            <div class="edu-cert-card">
+                <h4>Certified General Transcriptionist</h4>
+                <div class="institution">www.typewhizz.co.uk</div>
+                <div class="period">2022</div>
+                <p>Certified in general transcription, demonstrating strong attention to detail and accurate documentation skills.</p>
+                
+                <div class="achievements">
+                    <span class="achievement-tag">Attention to Detail</span>
+                    <span class="achievement-tag">Accuracy</span>
+                    <span class="achievement-tag">Documentation</span>
+                </div>
+            </div>
+            
+            <!-- Strengths -->
+            <div class="edu-cert-card">
+                <h4>Key Strengths</h4>
+                <div class="institution">Professional Attributes</div>
+                <div class="period">Consistently Demonstrated</div>
+                <p>Core strengths that enhance my technical capabilities and professional effectiveness.</p>
+                
+                <div class="achievements">
+                    <span class="achievement-tag">Quick Learner</span>
+                    <span class="achievement-tag">Strong Communication</span>
+                    <span class="achievement-tag">Independent Worker</span>
+                    <span class="achievement-tag">Team Collaboration</span>
+                    <span class="achievement-tag">Self-Motivated</span>
+                    <span class="achievement-tag">Deadline-Driven</span>
+                    <span class="achievement-tag">Problem Solver</span>
+                    <span class="achievement-tag">Adaptable</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        
+      
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+    </script>
+</body>
+</html>

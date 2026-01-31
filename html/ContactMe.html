@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio | Contact Me</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-black: #0a0a0a;
+            --secondary-green: #00ff00;
+            --glow-green: rgba(0, 255, 0, 0.7);
+            --text-white: #ffffff;
+            --card-black: #1a1a1a;
+            --section-spacing: 4rem;
+        }
+
+        body {
+            background-color: var(--primary-black);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-green);
+            text-shadow: 0 0 10px var(--glow-green);
+        }
+
+        .logo span {
+            color: var(--text-white);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-green);
+            text-shadow: 0 0 8px var(--glow-green);
+        }
+
+        .nav-links a.active {
+            color: var(--secondary-green);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary-green);
+            box-shadow: 0 0 8px var(--glow-green);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 4rem 5% 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--text-white);
+        }
+
+        .page-header h1 span {
+            color: var(--secondary-green);
+            text-shadow: 0 0 10px var(--glow-green);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Container */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            padding: 0 5% var(--section-spacing);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Contact Info Section */
+        .contact-info {
+            background-color: var(--card-black);
+            border-radius: 10px;
+            padding: 2.5rem;
+            border: 1px solid rgba(0, 255, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-info h2 {
+            color: var(--secondary-green);
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            text-shadow: 0 0 8px var(--glow-green);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 255, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-green);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+        }
+
+        .contact-details h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-white);
+        }
+
+        .contact-details p {
+            opacity: 0.9;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-link {
+            color: var(--secondary-green);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .contact-link:hover {
+            text-shadow: 0 0 8px var(--glow-green);
+            transform: translateX(5px);
+        }
+
+        .contact-link i {
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Referrals Section */
+        .referrals {
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 255, 0, 0.2);
+        }
+
+        .referrals h3 {
+            color: var(--secondary-green);
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .referral-item {
+            background-color: rgba(0, 255, 0, 0.05);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(0, 255, 0, 0.1);
+        }
+
+        .referral-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .referral-item p {
+            margin-bottom: 0.5rem;
+        }
+
+        .referral-name {
+            color: var(--secondary-green);
+            font-weight: 600;
+        }
+
+        .referral-role {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Availability Section */
+        .availability {
+            background-color: var(--card-black);
+            border-radius: 10px;
+            padding: 2.5rem;
+            border: 1px solid rgba(0, 255, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .availability h2 {
+            color: var(--secondary-green);
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            text-shadow: 0 0 8px var(--glow-green);
+        }
+
+        .availability-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .availability-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .availability-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 255, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-green);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+        }
+
+        .availability-details h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-white);
+        }
+
+        .availability-details p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: var(--secondary-green);
+            font-weight: 600;
+        }
+
+        /* Social Links Section */
+        .social-section {
+            text-align: center;
+            padding: 3rem 5%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .social-section h2 {
+            color: var(--secondary-green);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 8px var(--glow-green);
+        }
+
+        .social-links-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-white);
+            transition: all 0.3s ease;
+            width: 100px;
+        }
+
+        .social-link:hover {
+            transform: translateY(-10px);
+            color: var(--secondary-green);
+        }
+
+        .social-icon {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(0, 255, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover .social-icon {
+            background-color: rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+            transform: scale(1.1);
+        }
+
+        .social-link span {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(0, 255, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        footer p {
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-black);
+                flex-direction: column;
+                padding: 1rem 0;
+                border-top: 1px solid rgba(0, 255, 0, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 0.8rem 5%;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .contact-info,
+            .availability {
+                padding: 1.8rem;
+            }
+
+            .social-links-container {
+                gap: 1.5rem;
+            }
+
+            .social-link {
+                width: 80px;
+            }
+
+            .social-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .contact-item,
+            .availability-item {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .contact-icon,
+            .availability-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+
+            .social-link {
+                width: 70px;
+            }
+
+            .social-icon {
+                width: 55px;
+                height: 55px;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Port<span>folio</span></div>
+        <div class="nav-links" id="navLinks">
+            <a href="home.html">Home</a>
+            <a href="skills.html">Skills</a>
+            <a href="projects.html">Projects</a>
+            <a href="#" class="active">Contact Me</a>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Get In <span>Touch</span></h1>
+        <p>I'm always open to discussing new opportunities, collaborations, or just having a conversation about technology and development.</p>
+        <p>Feel free to reach out through any of the methods below.</p>
+    </section>
+
+    <!-- Contact Container -->
+    <div class="contact-container">
+        <!-- Contact Information -->
+        <div class="contact-info">
+            <h2>Contact Information</h2>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <div class="contact-details">
+                    <h3>Phone</h3>
+                    <p>079 377 2535</p>
+                    <a href="tel:0793772535" class="contact-link">
+                       
+                    </a>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-details">
+                    <h3>Email</h3>
+                    <p>nyandamdlalose08@gmail.com</p>
+                    <a href="mailto:nyandamdlalose08@gmail.com" class="contact-link">
+                      
+                    </a>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="contact-details">
+                    <h3>Location</h3>
+                    <p>562 Richard Street</p>
+                    <p>Hatfield, Pretoria, 0028</p>
+                    <p>South Africa</p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="contact-details">
+                    <h3>Education</h3>
+                    <p>Degree: Bachelor of Information Technology</p>
+                    <p>Institution: Stadio Higher Education University</p>
+                    <p>Graduated with 17 Distinctions</p>
+                </div>
+            </div>
+            
+            <!-- Referrals Section -->
+            <div class="referrals">
+                <h3>Professional References</h3>
+                
+                <div class="referral-item">
+                    <p class="referral-name">Khanyise Khanyile</p>
+                    <p class="referral-role">Former Work Manager - Department of Education</p>
+                    <p>Phone: 079 381 8399</p>
+                </div>
+                
+                <div class="referral-item">
+                    <p class="referral-name">Payal Morar</p>
+                    <p class="referral-role">Former Software Development Project Partner</p>
+                    <p>Phone: 072 099 2583</p>
+                </div>
+                
+                <div class="referral-item">
+                    <p class="referral-name">Rev Khanyile</p>
+                    <p class="referral-role">Current Priest</p>
+                    <p>Phone: 063 881 9183</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Availability & Next Steps -->
+        <div class="availability">
+            <h2>Availability & Next Steps</h2>
+            
+            <div class="availability-item">
+                <div class="availability-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="availability-details">
+                    <h3>Open to Opportunities</h3>
+                    <p>I am currently seeking <span class="highlight">full-time positions</span> in software development, particularly roles involving:</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Full-stack web development</li>
+                        <li>Mobile app development (Flutter/Android)</li>
+                        <li>Cloud-integrated solutions</li>
+                        <li>UI/UX design implementation</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="availability-item">
+                <div class="availability-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="availability-details">
+                    <h3>Ready to Start</h3>
+                    <p>Available for immediate start. Willing to relocate or work remotely as needed.</p>
+                </div>
+            </div>
+            
+            <div class="availability-item">
+                <div class="availability-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <div class="availability-details">
+                    <h3>Next Steps</h3>
+                    <p>Feel free to contact me directly via phone or email. I typically respond within <span class="highlight">24 hours</span>.</p>
+                    <p style="margin-top: 0.5rem;">I'm happy to provide:</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Detailed resume/CV</li>
+                        <li>Portfolio walkthrough</li>
+                        <li>Technical assessment</li>
+                        <li>Interview at your convenience</li>
+                    </ul>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+
+   
+
+    <!-- Footer -->
+    <footer>
+        <p>Nyanda Mdlalose</p>
+        <p>Mobile + Full Stack Developer & UI/UX Designer</p>
+        <p class="copyright">&copy; Nyanda Mdlalose Portfolio. All rights reserved.</p>
+       
+    </footer>
+
+    
+</body>
+</html>

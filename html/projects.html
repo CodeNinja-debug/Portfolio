@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio | Projects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-black: #0a0a0a;
+            --secondary-green: #00ff00;
+            --glow-green: rgba(0, 255, 0, 0.7);
+            --text-white: #ffffff;
+            --card-black: #1a1a1a;
+            --section-spacing: 4rem;
+        }
+
+        body {
+            background-color: var(--primary-black);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-green);
+            text-shadow: 0 0 10px var(--glow-green);
+        }
+
+        .logo span {
+            color: var(--text-white);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-green);
+            text-shadow: 0 0 8px var(--glow-green);
+        }
+
+        .nav-links a.active {
+            color: var(--secondary-green);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary-green);
+            box-shadow: 0 0 8px var(--glow-green);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 4rem 5% 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--text-white);
+        }
+
+        .page-header h1 span {
+            color: var(--secondary-green);
+            text-shadow: 0 0 10px var(--glow-green);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        /* Projects Sections */
+        .projects-section {
+            padding: 0 5%;
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title span {
+            color: var(--secondary-green);
+            text-shadow: 0 0 8px var(--glow-green);
+        }
+
+        .section-title i {
+            color: var(--secondary-green);
+            text-shadow: 0 0 8px var(--glow-green);
+        }
+
+        .live-title {
+            color: var(--secondary-green);
+        }
+
+        .launching-title {
+            color: #ff9900;
+        }
+
+        .other-title {
+            color: #3399ff;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Project Card */
+        .project-card {
+            background-color: var(--card-black);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary-green);
+            box-shadow: 0 15px 30px rgba(0, 255, 0, 0.1);
+        }
+
+        .project-thumbnail {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .project-thumbnail .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .live-badge {
+            background-color: rgba(0, 255, 0, 0.2);
+            color: var(--secondary-green);
+            border: 1px solid rgba(0, 255, 0, 0.4);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+
+        .soon-badge {
+            background-color: rgba(255, 153, 0, 0.2);
+            color: #ff9900;
+            border: 1px solid rgba(255, 153, 0, 0.4);
+            box-shadow: 0 0 10px rgba(255, 153, 0, 0.3);
+        }
+
+        .other-badge {
+            background-color: rgba(51, 153, 255, 0.2);
+            color: #3399ff;
+            border: 1px solid rgba(51, 153, 255, 0.4);
+            box-shadow: 0 0 10px rgba(51, 153, 255, 0.3);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-white);
+        }
+
+        .project-content p {
+            opacity: 0.9;
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tag {
+            background-color: rgba(0, 255, 0, 0.1);
+            color: var(--secondary-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+
+        .learn-more-btn {
+            display: inline-block;
+            width: 100%;
+            background-color: transparent;
+            color: var(--secondary-green);
+            border: 1px solid var(--secondary-green);
+            padding: 0.7rem;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .learn-more-btn:hover {
+            background-color: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+
+        /* Project Detail Modal */
+        .project-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem 0;
+        }
+
+        .modal-content {
+            background-color: var(--card-black);
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--secondary-green);
+            box-shadow: 0 0 40px rgba(0, 255, 0, 0.2);
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            color: var(--secondary-green);
+            font-size: 1.8rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--secondary-green);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .project-overview {
+            margin-bottom: 2.5rem;
+        }
+
+        .project-overview h3 {
+            color: var(--secondary-green);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .project-overview p {
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .project-details {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .project-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tech-stack h3, .project-features h3 {
+            color: var(--secondary-green);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .tech-stack ul, .project-features ul {
+            list-style-type: none;
+        }
+
+        .tech-stack li, .project-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .tech-stack li i, .project-features li i {
+            color: var(--secondary-green);
+        }
+
+        .project-screenshots {
+            margin-bottom: 2.5rem;
+        }
+
+        .project-screenshots h3 {
+            color: var(--secondary-green);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .screenshots-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+       .screenshot-item {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.05); /* Added background for portrait images */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.screenshot-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain; /* Changed from 'cover' to 'contain' for mobile screenshots */
+    transition: transform 0.5s ease;
+    max-height: 100%;
+}
+
+.screenshot-item.mobile-screenshot img {
+    object-fit: contain;
+    background-color: #1a1a1a; /* Dark background for mobile screens */
+    padding: 10px;
+}
+
+.screenshot-item.web-screenshot img {
+    object-fit: cover;
+}
+
+        .screenshot-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            flex: 1;
+            text-align: center;
+            padding: 0.8rem;
+            background-color: rgba(0, 255, 0, 0.1);
+            color: var(--secondary-green);
+            border: 1px solid var(--secondary-green);
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background-color: rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .project-link i {
+            margin-right: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(0, 255, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-white);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-green);
+            transform: translateY(-5px);
+            text-shadow: 0 0 10px var(--glow-green);
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 992px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-black);
+                flex-direction: column;
+                padding: 1rem 0;
+                border-top: 1px solid rgba(0, 255, 0, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 0.8rem 5%;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-content, .modal-body {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Port<span>folio</span></div>
+        <div class="nav-links" id="navLinks">
+            <a href="home.html">Home</a>
+            <a href="skills.html">Skills</a>
+            <a href="projects.html" class="active">Projects</a>
+            <a href="ContactMe.html">Contact Me</a>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>My <span>Projects</span></h1>
+        <p>Explore my portfolio of completed projects, upcoming launches, and other development work. Each project showcases different aspects of my skills in full-stack development, cloud integration, and UI/UX design.</p>
+    </section>
+
+    <!-- Live Projects Section -->
+    <section class="projects-section">
+        <h2 class="section-title"><i class="fas fa-rocket"></i> <span>Live</span> Projects</h2>
+        <div class="projects-grid">
+            <!-- Lungisa Project Card -->
+            <div class="project-card" data-project="lungisa">
+                <div class="project-thumbnail">
+                    <div class="status-badge live-badge">LIVE</div>
+                    <img src="../Images/LungisaThumbnail.png" alt="Lungisa Entrepreneurial Development">
+                </div>
+                <div class="project-content">
+                    <h3>Lungisa Entrepreneurial Development</h3>
+                    <p>A comprehensive platform for a non-profit organization with payment gateway, admin dashboard, and Cloud AI features.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Full Stack</span>
+                        <span class="project-tag">Payment Gateway</span>
+                        <span class="project-tag">Cloud AI</span>
+                        <span class="project-tag">Firebase</span>
+                    </div>
+                    <button class="learn-more-btn" data-project="lungisa">Learn More</button>
+                </div>
+            </div>
+            
+            <!-- Placeholder for future live projects -->
+            <div class="project-card" data-project="coming-soon-live">
+                <div class="project-thumbnail">
+                    
+                    <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Coming Soon Project">
+                </div>
+                <div class="project-content">
+                    <h3>More Live Projects Coming Soon</h3>
+                    <p>I'm continuously working on new projects. Check back soon for more live applications and websites.</p>
+                    
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Launching Soon Section -->
+    <section class="projects-section">
+        <h2 class="section-title"><i class="fas fa-hourglass-half"></i> <span class="launching-title">Launching</span> Soon</h2>
+        <div class="projects-grid">
+            <!-- E-Commerce Platform -->
+            <div class="project-card" data-project="ecommerce">
+                <div class="project-thumbnail">
+                    <div class="status-badge soon-badge">COMING SOON</div>
+                    <img src="../Images/ResThumbnail.png" alt="E-Commerce Platform">
+                </div>
+                <div class="project-content">
+                    <h3>Appointment Setting Platform for Linillium Solutions</h3>
+                    <p>An appointment setting platform called "Res" that allows users to manage their schedule, set meetings and chat</p>
+                    <p>Will soon launch on Apple </p>
+                    <div class="project-tags">
+                        <span class="project-tag">Flutter</span>
+                        <span class="project-tag">Dart</span>
+                        <span class="project-tag">Supabase</span>
+                        <span class="project-tag">Cloud & AI integration coming in later versions</span>
+                    </div>
+                    <button class="learn-more-btn" data-project="ecommerce">Learn More</button>
+                </div>
+            </div>
+            
+            
+        </div>
+    </section>
+
+    <!-- Other Projects Section -->
+    <section class="projects-section">
+        <h2 class="section-title"><i class="fas fa-folder-open"></i> <span class="other-title">Other</span> Projects</h2>
+        <div class="projects-grid">
+            <!-- Portfolio Website -->
+            <div class="project-card" data-project="portfolio">
+                <div class="project-thumbnail">
+                    <div class="status-badge other-badge">PERSONAL</div>
+                    <img src="../Images/MeetMeThumbnail.png" alt="Portfolio Website">
+                </div>
+                <div class="project-content">
+                    <h3>Academic scheduling app (MeetMe)</h3>
+                    <p>A one on one scheduling app meant to be used by students and lectuers alike for consultations or tutoring sessions</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Java/Kotlin</span>
+                        <span class="project-tag">SQLite</span>
+                        <span class="project-tag">Android Studio</span>
+                        <span class="project-tag">UI/UX</span>
+                    </div>
+                    <button class="learn-more-btn" data-project="portfolio">Learn More</button>
+                </div>
+            </div>
+            
+            
+            
+            
+        </div>
+    </section>
+
+    <!-- Project Detail Modal -->
+    <div id="projectDetailModal" class="project-detail-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalProjectTitle">Project Title</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="project-overview">
+                    <h3>Project Overview</h3>
+                    <p id="modalProjectOverview">Project overview will be displayed here.</p>
+                </div>
+                
+                <div class="project-details">
+                    <div class="tech-stack">
+                        <h3>Technology Stack</h3>
+                        <ul id="modalTechStack">
+                            <!-- Tech stack items will be added by JavaScript -->
+                        </ul>
+                    </div>
+                    
+                    <div class="project-features">
+                        <h3>Key Features</h3>
+                        <ul id="modalFeatures">
+                            <!-- Features will be added by JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="project-screenshots">
+                    <h3>Project Screenshots</h3>
+                    <div class="screenshots-grid" id="modalScreenshots">
+                        <!-- Screenshots will be added by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="project-links" id="modalLinks">
+                    <!-- Project links will be added by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+     <footer>
+        <p>Nyanda Mdlalose</p>
+        <p>Mobile + Full Stack Developer & UI/UX Designer</p>
+        <p class="copyright">&copy; Nyanda Mdlalose Portfolio. All rights reserved.</p>
+       
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Project Data
+       // Project Data - UPDATED WITH YOUR CORRECTIONS
+const projects = {
+    lungisa: {
+        title: "Lungisa Entrepreneurial Development",
+        overview: "A comprehensive platform built for a non-profit organization known as Lungisa focused on entrepreneurial development. This full-stack web application was built with ASP.NET Framework and includes an integrated payment gateway, admin dashboard, and Google Cloud AI features. Deployed on Render cloud platform with Firebase for authentication and real-time functionality.",
+        techStack: [
+            "Frontend: ASP.NET Framework, HTML5, CSS3, JavaScript",
+            "Backend: C#, ASP.NET",
+            "Database: Firebase Realtime Database",
+            "Cloud: Google Cloud AI, Cloudinary, Render Deployment",
+            "Payment: Integrated Payment Gateway",
+            "Authentication: Firebase Authentication"
+        ],
+        features: [
+            "Secure payment processing system with integrated gateway",
+            "Admin dashboard for content and user management",
+            "Google Cloud AI integration for enhanced features",
+            "Responsive design for mobile, tablet, and desktop",
+            "Firebase authentication and real-time database",
+            "Cloudinary for media storage and optimization"
+        ],
+        screenshots: [
+            "../Images/Lungisa1.png",
+            "../Images/Lungisa2.png",
+            "../Images/Lungisa3.png",
+            "../Images/Lungisa4.png"
+        ],
+        liveUrl: "https://lungisa.onrender.com/Home",
+        githubUrl: "#"
+    },
+    ecommerce: {
+        title: "Res - Appointment Setting Platform",
+        overview: "A mobile appointment setting application built for Linillium Solutions. This Flutter app allows users to manage their schedules, set meetings, and communicate via chat. Future versions will include cloud and AI integration for enhanced functionality. Keep a lookout on the Apple and Play store, set to launch 07/02/2026",
+        techStack: [
+            "Mobile Framework: Flutter, Dart",
+            "State Management: Provider/Bloc",
+            "Database: Supabase (PostgreSQL)",
+            "Authentication: Supabase Auth",
+            "Real-time: Supabase Realtime",
+            "Future: Cloud & AI integration planned"
+        ],
+        features: [
+            "Schedule management with calendar view",
+            "Meeting booking and confirmation system",
+            "In-app chat functionality",
+            "User authentication and profile management",
+            "Real-time notifications for appointments",
+            "Cross-platform compatibility (iOS & Android)"
+        ],
+        screenshots: [
+            "../Images/Res1.jpg",
+            "../Images/Res2.jpg",
+            "../Images/Res3.jpg",
+            "../Images/Res4.jpg"
+        ],
+        liveUrl: "#",
+        githubUrl: "#"
+    },
+    portfolio: {
+        title: "MeetMe - Academic Scheduling App",
+        overview: "A personal Android application designed for academic scheduling between students and lecturers. Built natively in Android Studio, this app facilitates one-on-one consultations, tutoring sessions, and academic scheduling with a clean, intuitive interface.",
+        techStack: [
+            "Platform: Android Studio",
+            "Language: Java/Kotlin",
+            "Database: SQLite / Firebase",
+            "UI: Android XML Layouts",
+            "Architecture: MVC/MVVM",
+            "Tools: Android SDK, Gradle"
+        ],
+        features: [
+            "One-on-one scheduling for student-lecturer consultations",
+            "Calendar integration for availability checking",
+            "Push notifications for appointment reminders",
+            "User profiles for students and lecturers",
+            "Rating and feedback system",
+            "Secure authentication and data privacy"
+        ],
+        screenshots: [
+            "../Images/MeetMe1.png",
+            "../Images/MeetMe2.png"
+            
+        ],
+        liveUrl: "#",
+        githubUrl: "https://github.com/Payal429/MeetMe_StudentApp_Group1_"
+    }
+};
+
+        // Modal elements
+        const modal = document.getElementById('projectDetailModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const modalTitle = document.getElementById('modalProjectTitle');
+        const modalOverview = document.getElementById('modalProjectOverview');
+        const modalTechStack = document.getElementById('modalTechStack');
+        const modalFeatures = document.getElementById('modalFeatures');
+        const modalScreenshots = document.getElementById('modalScreenshots');
+        const modalLinks = document.getElementById('modalLinks');
+
+        // Open modal when Learn More button is clicked
+        document.querySelectorAll('.learn-more-btn').forEach(button => {
+            if (!button.disabled) {
+                button.addEventListener('click', (e) => {
+                    const projectId = e.target.getAttribute('data-project');
+                    openProjectModal(projectId);
+                });
+            }
+        });
+
+        // Close modal when X is clicked
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside the modal content
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Function to open project modal
+        function openProjectModal(projectId) {
+            const project = projects[projectId];
+            
+            if (!project) return;
+            
+            // Set modal content
+            modalTitle.textContent = project.title;
+            modalOverview.textContent = project.overview;
+            
+            // Set tech stack
+            modalTechStack.innerHTML = '';
+            project.techStack.forEach(tech => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-check-circle"></i> ${tech}`;
+                modalTechStack.appendChild(li);
+            });
+            
+            // Set features
+            modalFeatures.innerHTML = '';
+            project.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-star"></i> ${feature}`;
+                modalFeatures.appendChild(li);
+            });
+            
+            // Set screenshots
+            modalScreenshots.innerHTML = '';
+            project.screenshots.forEach(screenshot => {
+                const div = document.createElement('div');
+                div.className = 'screenshot-item';
+                div.innerHTML = `<img src="${screenshot}" alt="${project.title} Screenshot">`;
+                modalScreenshots.appendChild(div);
+            });
+            
+            // Set links
+            modalLinks.innerHTML = '';
+            if (project.liveUrl && project.liveUrl !== '#') {
+                const liveLink = document.createElement('a');
+                liveLink.href = project.liveUrl;
+                liveLink.target = '_blank';
+                liveLink.className = 'project-link';
+                liveLink.innerHTML = '<i class="fas fa-external-link-alt"></i> Visit Live Site';
+                modalLinks.appendChild(liveLink);
+            }
+            
+            if (project.githubUrl && project.githubUrl !== '#') {
+                const githubLink = document.createElement('a');
+                githubLink.href = project.githubUrl;
+                githubLink.target = '_blank';
+                githubLink.className = 'project-link';
+                githubLink.innerHTML = '<i class="fab fa-github"></i> View on GitHub';
+                modalLinks.appendChild(githubLink);
+            }
+            
+            // Show modal
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+    </script>
+</body>
+</html>
